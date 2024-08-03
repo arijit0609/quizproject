@@ -16,8 +16,6 @@ body {
     margin: 100px auto 0;
     border: 1px solid black;
     padding: 30px;
-    text-align: center;
-    border-radius: 10px;
 }
 
 .app h1 {
@@ -26,16 +24,12 @@ body {
     text-align: center;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
-    padding: 20px;
-    border-radius: 10px;
+    font-weight: 25px;
+    padding-bottom: 30px;
 }
 
-.btn-container {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    margin-top: 20px;
+.quiz {
+    padding: 20px 0;
 }
 
 .btn {
@@ -46,20 +40,19 @@ body {
     margin: 10px 0;
     text-align: left;
     cursor: pointer;
-    background-color: white;
-    transition: 0.3s all;
 }
 
 .btn:hover:not([disabled]) {
     background-color: black;
     color: white;
+    transition: 0.3s all;
 }
 
 .btn:disabled {
-    cursor: not-allowed;
+    cursor: no-drop;
 }
 
-.next-btn {
+#next-btn {
     background-color: black;
     font-size: large;
     color: white;
@@ -69,13 +62,60 @@ body {
     padding: 10px;
     margin: 20px auto 0;
     cursor: pointer;
-    display: none;
+    display: block;
 }
 
 .correct {
+    color: black;
     background-color: rgb(86, 206, 62);
 }
 
 .incorrect {
+    color: black;
     background-color: rgb(218, 73, 53);
+}
+
+/* Media Queries for Responsiveness */
+
+@media (max-width: 768px) {
+    .app {
+        margin: 50px auto 0;
+        padding: 20px;
+    }
+
+    .btn {
+        padding: 8px;
+        margin: 8px 0;
+    }
+
+    #next-btn {
+        width: 100%;
+        font-size: medium;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .app {
+        width: 95%;
+        margin: 20px auto 0;
+        padding: 15px;
+    }
+
+    .btn {
+        padding: 6px;
+        margin: 6px 0;
+        font-size: small;
+    }
+
+    #next-btn {
+        width: 100%;
+        font-size: small;
+        padding: 6px;
+    }
+
+    .app h1 {
+        font-size: medium;
+        padding-bottom: 20px;
+    }
 }
