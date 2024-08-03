@@ -1,6 +1,6 @@
 const questions = [
     {
-        question: "Which is largest animal in the world?",
+        question: "Which is the largest animal in the world?",
         answers: [
             { text: "Shark", correct: 0 },
             { text: "Blue Whale", correct: 1 },
@@ -9,16 +9,16 @@ const questions = [
         ]
     },
     {
-        question: "Which is smallest country in the world?",
+        question: "Which is the smallest country in the world?",
         answers: [
-            { text: "Vatican city", correct: 1 },
-            { text: " Bhutan", correct: 0},
+            { text: "Vatican City", correct: 1 },
+            { text: "Bhutan", correct: 0 },
             { text: "Nepal", correct: 0 },
-            { text: "Srilanka", correct: 0 },
+            { text: "Sri Lanka", correct: 0 },
         ]
     },
     {
-        question: "Which is largest desert in the world?",
+        question: "Which is the largest desert in the world?",
         answers: [
             { text: "Kalahari", correct: 0 },
             { text: "Thar", correct: 0 },
@@ -27,103 +27,158 @@ const questions = [
         ]
     },
     {
-        question: "Which is largest continent in the world?",
+        question: "Which is the largest continent in the world?",
         answers: [
             { text: "Africa", correct: 0 },
-            { text: "Asia", correct: 0 },
+            { text: "Asia", correct: 1 },
             { text: "Arctic", correct: 0 },
-            { text: "Australia", correct: 1 },
+            { text: "Australia", correct: 0 },
         ]
     },
-
+    // Add more questions here...
+    {
+        question: "What is the capital city of Japan?",
+        answers: [
+            { text: "Seoul", correct: 0 },
+            { text: "Tokyo", correct: 1 },
+            { text: "Beijing", correct: 0 },
+            { text: "Bangkok", correct: 0 },
+        ]
+    },
+    {
+        question: "Who wrote 'Romeo and Juliet'?",
+        answers: [
+            { text: "Charles Dickens", correct: 0 },
+            { text: "Jane Austen", correct: 0 },
+            { text: "Mark Twain", correct: 0 },
+            { text: "William Shakespeare", correct: 1 },
+        ]
+    },
+    {
+        question: "Which planet is known as the Red Planet?",
+        answers: [
+            { text: "Earth", correct: 0 },
+            { text: "Mars", correct: 1 },
+            { text: "Jupiter", correct: 0 },
+            { text: "Venus", correct: 0 },
+        ]
+    },
+    {
+        question: "What is the chemical symbol for water?",
+        answers: [
+            { text: "H2O", correct: 1 },
+            { text: "O2", correct: 0 },
+            { text: "CO2", correct: 0 },
+            { text: "NaCl", correct: 0 },
+        ]
+    },
+    {
+        question: "Who painted the Mona Lisa?",
+        answers: [
+            { text: "Vincent van Gogh", correct: 0 },
+            { text: "Pablo Picasso", correct: 0 },
+            { text: "Leonardo da Vinci", correct: 1 },
+            { text: "Claude Monet", correct: 0 },
+        ]
+    },
+    {
+        question: "What is the boiling point of water?",
+        answers: [
+            { text: "90°C", correct: 0 },
+            { text: "100°C", correct: 1 },
+            { text: "110°C", correct: 0 },
+            { text: "120°C", correct: 0 },
+        ]
+    }
 ];
 
-const questionElement=document.getElementById("question");
-const answerbutton=document.getElementById("answer-buttons");
-const nextButton=document.getElementById("next-btn");
+const questionElement = document.getElementById("question");
+const answerButtons = document.getElementById("answer-buttons");
+const nextButton = document.getElementById("next-btn");
 
-let currIndex=0,score=0;
+let currentQuestionIndex = 0;
+let score = 0;
 
-function startQuiz()
-{
-    currIndex=0;
-    score=0;
+function startQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    shuffleArray(questions);
+    nextButton.innerHTML = "Next";
     showQuestion();
 }
-function showQuestion()
-{
-    resetState();
-    let currquestion=questions[currIndex];
-    let questionNo=currIndex+1;
-   
-    questionElement.innerHTML=questionNo+". "+currquestion.question;
 
-    currquestion.answers.forEach(answer=>{
-        const button=document.createElement("button");
-        button.innerHTML=answer.text;
+function showQuestion() {
+    resetState();
+    const currentQuestion = questions[currentQuestionIndex];
+    questionElement.innerHTML = `${currentQuestionIndex + 1}. ${currentQuestion.question}`;
+    currentQuestion.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.innerHTML = answer.text;
         button.classList.add("btn");
-        answerbutton.appendChild(button);
-        if(answer.correct==1)
-        {
-            button.dataset.correct=answer.correct;
+        answerButtons.appendChild(button);
+        if (answer.correct) {
+            button.dataset.correct = answer.correct;
         }
-        button.addEventListener("click",selectAnswer)
+        button.addEventListener("click", selectAnswer);
     });
 }
-function resetState()
-{
-    nextButton.style.display="none";
-    while(answerbutton.firstChild)
-    {
-        answerbutton.removeChild(answerbutton.firstChild);
+
+function resetState() {
+    nextButton.style.display = "none";
+    while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild);
     }
 }
-function selectAnswer(e)
-{
-    const selectedBtn=e.target;
-    const isCorrect=selectedBtn.dataset.correct==1;
-    if(isCorrect)
-    {
+
+function selectAnswer(e) {
+    const selectedBtn = e.target;
+    const isCorrect = selectedBtn.dataset.correct == "1";
+    if (isCorrect) {
         selectedBtn.classList.add("correct");
         score++;
-    }
-    else{
+    } else {
         selectedBtn.classList.add("incorrect");
+        Array.from(answerButtons.children).forEach(button => {
+            if (button.dataset.correct == "1") {
+                button.classList.add("correct");
+            }
+        });
     }
-    Array.from(answerbutton.children).forEach(button=>{
-        if(button.dataset.correct==1)
-        {
-            button.classList.add("correct");
-        }
-        button.disabled=1;
+    Array.from(answerButtons.children).forEach(button => {
+        button.disabled = true;
     });
-    nextButton.style.display="block";
+    nextButton.style.display = "block";
 }
-function showScore()
-{
+
+function showScore() {
     resetState();
-    questionElement.innerHTML=`You scored ${score} out of ${questions.length}!`
-    nextButton.innerHTML="play again";
-    nextButton.style.display="block";
+    questionElement.innerHTML = `You scored ${score} out of ${questions.length}!`;
+    nextButton.innerHTML = "Play Again";
+    nextButton.style.display = "block";
 }
-function handleNext()
-{
-    currIndex++;
-    if(currIndex<questions.length)
-    {
+
+function handleNextButton() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
         showQuestion();
-    }
-    else{
+    } else {
         showScore();
     }
 }
-nextButton.addEventListener("click",()=>{
-    if(currIndex<questions.length)
-    {
-        handleNext();
-    }
-    else{
+
+nextButton.addEventListener("click", () => {
+    if (currentQuestionIndex < questions.length) {
+        handleNextButton();
+    } else {
         startQuiz();
     }
-})
+});
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 startQuiz();
