@@ -1,69 +1,121 @@
-*{
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Poppins',sans-serif ;
+    font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
 }
-body{
-background-color: rgb(193, 190, 190);
 
+body {
+    background-color: rgb(193, 190, 190);
 }
-.app{
+
+.app {
     background-color: rgb(225, 225, 233);
     width: 90%;
     max-width: 600px;
     margin: 100px auto 0;
     border: 1px solid black;
-    /* //border-radius: 10px; */
     padding: 30px;
 }
-.app h1{
+
+.app h1 {
     color: rgb(183, 177, 177);
     background-color: black;
-   text-align: center;
-   align-items: center;
-   justify-content: center;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     font-weight: 25px;
     padding-bottom: 30px;
 }
-.quiz{
+
+.quiz {
     padding: 20px 0;
-    
 }
-.btn{
+
+.btn {
     font-weight: 500;
-    width:100%;
-    border:1px solid black;
+    width: 100%;
+    border: 1px solid black;
     padding: 10px;
     margin: 10px 0;
     text-align: left;
     cursor: pointer;
 }
-.btn:hover:not([disabled]){
+
+.btn:hover:not([disabled]) {
     background-color: black;
     color: white;
     transition: 0.3s all;
 }
-.btn:disabled{
-cursor: no-drop;
+
+.btn:disabled {
+    cursor: no-drop;
 }
-#next-btn{
+
+#next-btn {
     background-color: black;
     font-size: large;
     color: white;
     font-weight: 500;
-    width:150px;
-    border:0;
+    width: 150px;
+    border: 0;
     padding: 10px;
     margin: 20px auto 0;
-    cursor:pointer;
+    cursor: pointer;
     display: block;
 }
-.correct{
+
+.correct {
     color: black;
     background-color: rgb(86, 206, 62);
 }
-.incorrect{
+
+.incorrect {
     color: black;
     background-color: rgb(218, 73, 53);
+}
+
+/* Media Queries for Responsiveness */
+
+@media (max-width: 768px) {
+    .app {
+        margin: 50px auto 0;
+        padding: 20px;
+    }
+
+    .btn {
+        padding: 8px;
+        margin: 8px 0;
+    }
+
+    #next-btn {
+        width: 100%;
+        font-size: medium;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .app {
+        width: 95%;
+        margin: 20px auto 0;
+        padding: 15px;
+    }
+
+    .btn {
+        padding: 6px;
+        margin: 6px 0;
+        font-size: small;
+    }
+
+    #next-btn {
+        width: 100%;
+        font-size: small;
+        padding: 6px;
+    }
+
+    .app h1 {
+        font-size: medium;
+        padding-bottom: 20px;
+    }
 }
